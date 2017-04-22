@@ -2,11 +2,12 @@ package com.example.maxim.turaevyandex.data.source;
 
 import android.support.annotation.NonNull;
 
-/**
- * Created by maxim on 4/19/2017.
- */
+import com.example.maxim.turaevyandex.data.Translation;
 
-public interface TranslationDataSource {
+import java.util.List;
+
+
+public interface TranslationsDataSource {
 
     interface GetTranslationCallback {
 
@@ -22,11 +23,14 @@ public interface TranslationDataSource {
         void onDataNotAvailable();
     }
 
-    void getTranslation(@NonNull String translationId, @NonNull GetTranslationCallback callback);
+    void getTranslation(@NonNull String request, @NonNull String lang, @NonNull GetTranslationCallback callback);
 
     void getBookmarks(@NonNull GetBookmarksCallback callback);
 
     void deleteTranslation(@NonNull String translationId);
 
-    void toggleBookmark(@NonNull String translationId);
+    void setBookmark(@NonNull String translationId);
+
+    void saveTranslation(@NonNull Translation translation);
+
 }

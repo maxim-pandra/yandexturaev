@@ -1,12 +1,10 @@
 package com.example.maxim.turaevyandex.data.source;
 
-import android.content.ContentResolver;
-import android.test.suitebuilder.annotation.LargeTest;
+import com.example.maxim.turaevyandex.data.Translation;
 
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
@@ -16,15 +14,15 @@ import static org.mockito.Mockito.verify;
  * Unit tests for the implementation of the in-memory repository with cache.
  */
 
-public class TranslationRepositoryTest {
+public class TranslationsRepositoryTest {
 
-    private TranslationRepository translationRepository;
-
-    @Mock
-    private TranslationDataSource translationRemoteDataSource;
+    private TranslationsRepository translationsRepository;
 
     @Mock
-    private TranslationDataSource translationLocalDataSource;
+    private TranslationsDataSource translationRemoteDataSource;
+
+    @Mock
+    private TranslationsDataSource translationLocalDataSource;
 
 
     @Before
@@ -34,13 +32,13 @@ public class TranslationRepositoryTest {
         MockitoAnnotations.initMocks(this);
 
         // Get a reference to the class under test
-        translationRepository = TranslationRepository.getInstance(
+        translationsRepository = TranslationsRepository.getInstance(
                 translationRemoteDataSource, translationLocalDataSource);
     }
 
     @After
     public void destroyRepositoryInstance() {
-        TranslationRepository.destroyInstance();
+        TranslationsRepository.destroyInstance();
     }
 
     @Test
@@ -48,7 +46,7 @@ public class TranslationRepositoryTest {
 
         Translation translation = new Translation("hello", "здравствуйте", "en-ru");
 
-        translationRepository.saveTranslation(Translation translation);
+        translationsRepository.saveTranslation(translation);
 
         verify(translationLocalDataSource).saveTranslation(translation);
     }
