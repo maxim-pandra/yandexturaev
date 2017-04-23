@@ -58,22 +58,26 @@ public class TranslatorFragment extends Fragment implements TranslatorContract.V
         @Override
         public void afterTextChanged(Editable s) {
             Timber.d("loadTranslation called with parameter s = '%s'", s.toString());
-            if(s.toString().length() > 2) {
+            if (s.toString().length() > 2) {
                 presenter.loadTranslation(s.toString());
             } else {
                 showEmptyView();
             }
         }
     };
+    private Translation currentTranslation;
     private CompoundButton.OnCheckedChangeListener checkedChangeListener = new CompoundButton.OnCheckedChangeListener() {
         @Override
         public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
             if (isChecked) {
                 presenter.updateTranslationBookmarkState(currentTranslation);
+                showBookmarkAddedMessage();
+            } else {
+                Timber.w("remove bookmark from history is not supported yet");
             }
         }
     };
-    private Translation currentTranslation;
+    private ScrollChildSwipeRefreshLayout swipeRefreshLayout;
 
     public TranslatorFragment() {
         // Requires empty public constructor
@@ -116,8 +120,7 @@ public class TranslatorFragment extends Fragment implements TranslatorContract.V
         translatorText = (EditText) root.findViewById(R.id.translatorEditText);
         translatorText.addTextChangedListener(watcher);
         // Set up progress indicator
-        final ScrollChildSwipeRefreshLayout swipeRefreshLayout =
-                (ScrollChildSwipeRefreshLayout) root.findViewById(R.id.refresh_layout);
+        swipeRefreshLayout = (ScrollChildSwipeRefreshLayout) root.findViewById(R.id.refresh_layout);
         swipeRefreshLayout.setColorSchemeColors(
                 ContextCompat.getColor(getActivity(), R.color.colorPrimary),
                 ContextCompat.getColor(getActivity(), R.color.colorAccent),
@@ -188,6 +191,11 @@ public class TranslatorFragment extends Fragment implements TranslatorContract.V
     }
 
     @Override
+    public void showBookmarkAddedMessage() {
+        showMessage(getResources().getString(R.string.bookmark_added));
+    }
+
+    @Override
     public void setLoadingIndicator(final boolean active) {
         if (getView() == null) {
             return;
@@ -243,6 +251,7 @@ public class TranslatorFragment extends Fragment implements TranslatorContract.V
         translatorView.setVisibility(View.VISIBLE);
         emptyView.setVisibility(View.GONE);
         translationTextView.setText(translation.getTranslationText());
+        bookmarkBox.setChecked(translation.isBookmarked());
     }
 
 }

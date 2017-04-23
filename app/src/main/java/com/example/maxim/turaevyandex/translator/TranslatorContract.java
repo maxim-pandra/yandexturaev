@@ -21,6 +21,8 @@ public class TranslatorContract {
         void setTitle(String title);
 
         void showLangDirPopUpMenu();
+
+        void showBookmarkAddedMessage();
     }
 
     interface Presenter extends BasePresenter {
