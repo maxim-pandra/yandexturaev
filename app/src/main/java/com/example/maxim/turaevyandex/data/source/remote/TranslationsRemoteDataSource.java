@@ -2,6 +2,7 @@ package com.example.maxim.turaevyandex.data.source.remote;
 
 import android.support.annotation.NonNull;
 
+import com.example.maxim.turaevyandex.BuildConfig;
 import com.example.maxim.turaevyandex.data.Translation;
 import com.example.maxim.turaevyandex.data.models.ApiResponse;
 import com.example.maxim.turaevyandex.data.source.TranslationsDataSource;
@@ -19,7 +20,6 @@ import timber.log.Timber;
 public class TranslationsRemoteDataSource implements TranslationsDataSource {
 
     private static TranslationsRemoteDataSource INSTANCE;
-    private static final String API_KEY = "trnsl.1.1.20170418T194410Z.cfcc7e995254caa0.faebb8c711afdd2fed5275472619ca89670f3fcf";
 
     private final RestClient restClient;
 
@@ -42,7 +42,7 @@ public class TranslationsRemoteDataSource implements TranslationsDataSource {
     @Override
     public void getTranslation(@NonNull final String request, @NonNull String lang, @NonNull final GetTranslationCallback callback) {
         // Simulate network
-        Call<ApiResponse> translate = restClient.getApiService().translate(request, lang, API_KEY);
+        Call<ApiResponse> translate = restClient.getApiService().translate(request, lang, BuildConfig.YANDEX_API_KEY);
         translate.enqueue(new Callback<ApiResponse>() {
             @Override
             public void onResponse(Call<ApiResponse> call, Response<ApiResponse> response) {
