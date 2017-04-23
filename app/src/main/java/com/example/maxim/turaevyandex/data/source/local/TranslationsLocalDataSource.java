@@ -77,6 +77,12 @@ public class TranslationsLocalDataSource implements TranslationsDataSource {
     }
 
     @Override
+    public void clearDataBase() {
+        int delete = contentResolver.delete(TranslationsPersistenceContract.TranslationEntry.buildTranslationsUri(), null, null);
+        Timber.d("DeleteTranslation called, %d raws deleted", delete);
+    }
+
+    @Override
     public void deleteTranslation(@NonNull String translationId) {
         String selection = TranslationsPersistenceContract.TranslationEntry.COLUMN_NAME_ENTRY_ID + " LIKE ?";
         String[] selectionArgs = {translationId};

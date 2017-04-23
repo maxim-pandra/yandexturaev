@@ -9,6 +9,7 @@ import java.util.List;
 
 public interface TranslationsDataSource {
 
+
     interface GetTranslationCallback {
 
         void onTranslationLoaded(Translation translation);
@@ -22,6 +23,8 @@ public interface TranslationsDataSource {
 
         void onDataNotAvailable();
     }
+
+    void clearDataBase();
 
     void getTranslation(@NonNull String request, @NonNull String lang, @NonNull GetTranslationCallback callback);
 

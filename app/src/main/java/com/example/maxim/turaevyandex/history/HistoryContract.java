@@ -44,6 +44,8 @@ public class HistoryContract {
 
         void setFiltering(HistoryFilter requestType);
 
+        void clearHistory();
+
         HistoryFilterType getFiltering();
     }
 }

@@ -6,6 +6,7 @@ import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.content.Loader;
+import android.support.v7.widget.LinearLayoutCompat;
 
 import com.example.maxim.turaevyandex.data.Translation;
 import com.example.maxim.turaevyandex.data.source.LoaderProvider;
@@ -113,6 +114,11 @@ public class HistoryPresenter implements HistoryContract.Presenter,
     public void setFiltering(HistoryFilter historyFilter) {
         currentFiltering = historyFilter;
         loaderManager.restartLoader(HISTORY_LOADER, currentFiltering.getFilterExtras(), this);
+    }
+
+    @Override
+    public void clearHistory() {
+        translationsRepository.clearDataBase();
     }
 
     @Override

@@ -127,9 +127,8 @@ public class HistoryFragment extends Fragment implements HistoryContract.View {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.menu_clear:
-                Toast.makeText(getActivity(), "Clear not supported yet", Toast.LENGTH_SHORT).show();
-                //ToDo add clear support
-//                  presenter.clearCompletedTasks();
+                presenter.clearHistory();
+                showMessage(getString(R.string.history_cleared));
                 break;
             case R.id.menu_filter:
                 showFilteringPopUpMenu();

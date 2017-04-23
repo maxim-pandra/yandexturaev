@@ -135,8 +135,17 @@ public class TranslationsRepository implements TranslationsDataSource {
     }
 
     @Override
+    public void clearDataBase() {
+        translationsLocalDataSource.clearDataBase();
+    }
+
+    @Override
     public void deleteTranslation(@NonNull String translationId) {
         translationsLocalDataSource.deleteTranslation(translationId);
+    }
+
+    public void clearHistory() {
+        translationsLocalDataSource.clearDataBase();
     }
 
     @Override

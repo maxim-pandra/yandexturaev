@@ -23,4 +23,5 @@
     <string name="translator_empty_text">Type text to the field above.\nYou can change translation direction via arrows in the right upper corner</string>
     <string name="label_translation">Translation</string>
     <string name="settings_text">Coming soon :)</string>
+    <string name="history_cleared">history cleared</string>
 </resources>

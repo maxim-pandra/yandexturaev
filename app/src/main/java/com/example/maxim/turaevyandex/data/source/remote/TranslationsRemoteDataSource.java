@@ -77,6 +77,11 @@ public class TranslationsRemoteDataSource implements TranslationsDataSource {
     }
 
     @Override
+    public void clearDataBase() {
+        throw new UnsupportedOperationException("We don't have remote database");
+    }
+
+    @Override
     public void saveTranslation(@NonNull Translation translation) {
         throw new UnsupportedOperationException("Translations should be saved in local datasource");
     }
