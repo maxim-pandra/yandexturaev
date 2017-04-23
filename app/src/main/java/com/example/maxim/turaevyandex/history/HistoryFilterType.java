@@ -1,6 +1,6 @@
-package com.example.maxim.turaevyandex.translations;
+package com.example.maxim.turaevyandex.history;
 
-public enum TranslationsFilterType {
+public enum HistoryFilterType {
     /**
      * Do not filter translations.
      */

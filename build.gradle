@@ -34,6 +34,9 @@ ext {
     // App dependencies
     supportLibraryVersion = '25.3.1'
     daggerVersion = '2.9'
+    retrofitVersion = '2.2.0'
+    timberVersion = '4.5.1'
+
     junitVersion = '4.12'
 
     mockitoVersion = '1.10.19'

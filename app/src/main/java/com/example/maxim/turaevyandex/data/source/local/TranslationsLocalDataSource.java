@@ -25,6 +25,7 @@ public class TranslationsLocalDataSource implements TranslationsDataSource {
     public static TranslationsLocalDataSource getInstance(@NonNull ContentResolver contentResolver) {
         if (INSTANCE == null) {
             INSTANCE = new TranslationsLocalDataSource(contentResolver);
+            INSTANCE.saveTranslation(new Translation("hello", "world", "ru-en"));
         }
         return INSTANCE;
     }

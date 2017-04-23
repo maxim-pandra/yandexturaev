@@ -68,6 +68,7 @@ public class TranslationsRepository implements TranslationsDataSource {
         translationsRemoteDataSource.getTranslation(request, lang, new GetTranslationCallback() {
             @Override
             public void onTranslationLoaded(Translation translation) {
+                saveTranslation(translation);
                 callback.onTranslationLoaded(translation);
             }
 
@@ -88,20 +89,22 @@ public class TranslationsRepository implements TranslationsDataSource {
     @Override
     public void getBookmarks(@NonNull final GetBookmarksCallback callback) {
 
-        // Load from local
-        translationsLocalDataSource.getBookmarks(new GetBookmarksCallback() {
-            @Override
-            public void onBookmarksLoaded(List<Translation> translations) {
-                //todo do something with loaded bookmarks
-//                refreshLocalDataSource(translations);
-                callback.onBookmarksLoaded(null);
-            }
+        callback.onBookmarksLoaded(null);
 
-            @Override
-            public void onDataNotAvailable() {
-                callback.onDataNotAvailable();
-            }
-        });
+//        // Load from local
+//        translationsLocalDataSource.getBookmarks(new GetBookmarksCallback() {
+//            @Override
+//            public void onBookmarksLoaded(List<Translation> translations) {
+//                //todo do something with loaded bookmarks
+////                refreshLocalDataSource(translations);
+//                callback.onBookmarksLoaded(null);
+//            }
+//
+//            @Override
+//            public void onDataNotAvailable() {
+//                callback.onDataNotAvailable();
+//            }
+//        });
 
     }
 

@@ -7,7 +7,7 @@ import android.support.v4.content.CursorLoader;
 import android.support.v4.content.Loader;
 
 import com.example.maxim.turaevyandex.data.source.local.TranslationsPersistenceContract;
-import com.example.maxim.turaevyandex.translations.TranslationFilter;
+import com.example.maxim.turaevyandex.history.HistoryFilter;
 
 public class LoaderProvider {
 
@@ -18,10 +18,10 @@ public class LoaderProvider {
         this.context = context;
     }
 
-    public Loader<Cursor> createFilteredTranslationsLoader(TranslationFilter translationFilter) {
+    public Loader<Cursor> createFilteredTranslationsLoader(HistoryFilter historyFilter) {
         String selection = null;
         String[] selectionArgs = null;
-        switch (translationFilter.getTranslationsFilterType()) {
+        switch (historyFilter.getHistoryFilterType()) {
 
             case ALL_TRANSLATIONS:
                 selection = null;
