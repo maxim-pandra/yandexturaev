@@ -1,4 +1,4 @@
-package com.example.maxim.turaevyandex.history;
+package com.example.maxim.turaevyandex.common;
 
 import android.content.Context;
 import android.support.v4.view.ViewCompat;

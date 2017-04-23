@@ -8,6 +8,7 @@ import android.support.v4.content.Loader;
 
 import com.example.maxim.turaevyandex.data.source.local.TranslationsPersistenceContract;
 import com.example.maxim.turaevyandex.history.HistoryFilter;
+import com.example.maxim.turaevyandex.translator.TranslationDirection;
 
 public class LoaderProvider {
 
@@ -43,13 +44,20 @@ public class LoaderProvider {
         );
     }
 
-    public Loader<Cursor> createTranslationLoader(String translationId) {
+    public Loader<Cursor> createTranslationLoader(String request, TranslationDirection translationDirection) {
+        String selection = null;
+        String[] selectionArgs = null;
+
+        selection = TranslationsPersistenceContract.TranslationEntry.COLUMN_NAME_REQUEST + " = ? AND " +
+            TranslationsPersistenceContract.TranslationEntry.COLUMN_NAME_LANG + " = ?";
+        selectionArgs = new String[] { request, translationDirection.getStringDirection() };
+
         return new CursorLoader(
                 context,
-                TranslationsPersistenceContract.TranslationEntry.buildTranslationsUriWith(translationId),
+                TranslationsPersistenceContract.TranslationEntry.buildTranslationsUriWith(request, translationDirection.getStringDirection()),
                 null,
-                null,
-                new String[]{String.valueOf(translationId)},
+                selection,
+                selectionArgs,
                 null
         );
     }

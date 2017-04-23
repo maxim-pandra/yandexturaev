@@ -5,6 +5,7 @@ import android.net.Uri;
 import android.provider.BaseColumns;
 
 import com.example.maxim.turaevyandex.BuildConfig;
+import com.example.maxim.turaevyandex.translator.TranslationDirection;
 
 /**
  * The contract used for the db to save the translations locally.
@@ -58,6 +59,13 @@ public class TranslationsPersistenceContract {
 
         public static Uri buildTranslationsUri() {
             return CONTENT_TRANSLATION_URI.buildUpon().build();
+        }
+
+        public static Uri buildTranslationsUriWith(String request, String direction) {
+            return CONTENT_TRANSLATION_URI.buildUpon()
+                    .appendPath(request)
+                    .appendPath(direction)
+                    .build();
         }
 
     }

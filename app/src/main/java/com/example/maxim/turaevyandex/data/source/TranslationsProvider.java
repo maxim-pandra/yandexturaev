@@ -13,6 +13,8 @@ import android.support.annotation.Nullable;
 import com.example.maxim.turaevyandex.data.source.local.TranslationsDbHelper;
 import com.example.maxim.turaevyandex.data.source.local.TranslationsPersistenceContract;
 
+import java.util.List;
+
 import timber.log.Timber;
 
 
@@ -20,6 +22,7 @@ public class TranslationsProvider extends ContentProvider {
 
     private static final int TRANSLATION = 100;
     private static final int TRANSLATION_ITEM = 101;
+    private static final int TRANSLATION_ITEM_BY_REQUEST = 102;
     private static final UriMatcher uriMatcher = buildUriMatcher();
     private TranslationsDbHelper translationsDbHelper;
 
@@ -29,6 +32,7 @@ public class TranslationsProvider extends ContentProvider {
 
         matcher.addURI(authority, TranslationsPersistenceContract.TranslationEntry.TABLE_NAME, TRANSLATION);
         matcher.addURI(authority, TranslationsPersistenceContract.TranslationEntry.TABLE_NAME + "/*", TRANSLATION_ITEM);
+        matcher.addURI(authority, TranslationsPersistenceContract.TranslationEntry.TABLE_NAME + "/*" + "/*", TRANSLATION_ITEM_BY_REQUEST);
         return matcher;
     }
 
@@ -63,6 +67,20 @@ public class TranslationsProvider extends ContentProvider {
                         projection,
                         TranslationsPersistenceContract.TranslationEntry.COLUMN_NAME_ENTRY_ID + " = ?",
                         where,
+                        null,
+                        null,
+                        sortOrder
+                );
+                break;
+            case TRANSLATION_ITEM_BY_REQUEST:
+                List<String> pathSegments = uri.getPathSegments();
+                String[] where2 = {pathSegments.get(pathSegments.size()-2), pathSegments.get(pathSegments.size()-1)};
+                retCursor = translationsDbHelper.getReadableDatabase().query(
+                        TranslationsPersistenceContract.TranslationEntry.TABLE_NAME,
+                        projection,
+                        TranslationsPersistenceContract.TranslationEntry.COLUMN_NAME_REQUEST + " = ? AND " +
+                                TranslationsPersistenceContract.TranslationEntry.COLUMN_NAME_LANG + " = ?",
+                        where2,
                         null,
                         null,
                         sortOrder

@@ -3,7 +3,9 @@ package com.example.maxim.turaevyandex.data;
 import android.content.ContentValues;
 import android.database.Cursor;
 import android.support.annotation.NonNull;
+import android.text.TextUtils;
 
+import com.example.maxim.turaevyandex.data.models.ApiResponse;
 import com.example.maxim.turaevyandex.data.source.local.TranslationsPersistenceContract;
 
 import java.util.UUID;
@@ -157,5 +159,11 @@ public class Translation {
                 "request='" + request + '\'' +
                 ", lang='" + lang + '\'' +
                 '}';
+    }
+
+    public static Translation from(String request, ApiResponse response) {
+        return new Translation(request,
+                TextUtils.join(" ", response.text),
+                response.lang);
     }
 }

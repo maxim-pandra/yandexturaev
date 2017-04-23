@@ -15,7 +15,8 @@ import com.example.maxim.turaevyandex.Injection;
 import com.example.maxim.turaevyandex.R;
 import com.example.maxim.turaevyandex.data.source.LoaderProvider;
 import com.example.maxim.turaevyandex.settings.SettingsActivity;
-import com.example.maxim.turaevyandex.util.ActivityUtils;
+import com.example.maxim.turaevyandex.common.util.ActivityUtils;
+import com.example.maxim.turaevyandex.translator.TranslatorActivity;
 
 import timber.log.Timber;
 
@@ -34,15 +35,18 @@ public class HistoryActivity extends AppCompatActivity {
 
         @Override
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+            Intent intent;
             switch (item.getItemId()) {
                 case R.id.navigation_translate:
+                    intent = new Intent(HistoryActivity.this, TranslatorActivity.class);
+                    HistoryActivity.this.startActivity(intent);
                     Toast.makeText(HistoryActivity.this, "go home", Toast.LENGTH_SHORT).show();
                     return true;
                 case R.id.navigation_history:
                    Toast.makeText(HistoryActivity.this, "already here", Toast.LENGTH_SHORT).show();
                     return true;
                 case R.id.navigation_settings:
-                    Intent intent = new Intent(HistoryActivity.this, SettingsActivity.class);
+                    intent = new Intent(HistoryActivity.this, SettingsActivity.class);
                     HistoryActivity.this.startActivity(intent);
                     Toast.makeText(HistoryActivity.this, "go to settings", Toast.LENGTH_SHORT).show();
                     return true;

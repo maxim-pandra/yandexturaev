@@ -3,10 +3,17 @@ package com.example.maxim.turaevyandex.data.source.remote;
 import android.support.annotation.NonNull;
 
 import com.example.maxim.turaevyandex.data.Translation;
+import com.example.maxim.turaevyandex.data.models.ApiResponse;
 import com.example.maxim.turaevyandex.data.source.TranslationsDataSource;
+import com.example.maxim.turaevyandex.network.RestClient;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import timber.log.Timber;
 
 /**
  * Implementation of the data source that adds async network calls.
@@ -14,23 +21,18 @@ import java.util.List;
 
 public class TranslationsRemoteDataSource implements TranslationsDataSource {
 
-    private static final int SERVICE_LATENCY_IN_MILLIS = 5000;
-    private final static List<Translation> TRANSLATIONS_SERVICE_DATA;
     private static TranslationsRemoteDataSource INSTANCE;
+    private static final String API_KEY = "trnsl.1.1.20170418T194410Z.cfcc7e995254caa0.faebb8c711afdd2fed5275472619ca89670f3fcf";
 
-    static {
-        TRANSLATIONS_SERVICE_DATA = new ArrayList<>();
-        addTranslation("Hello", "привет", "en-ru");
-        addTranslation("World", "мир", "en-ru");
-    }
+    private final RestClient restClient;
 
     private static void addTranslation(String request, String translationText, String lang) {
         Translation translation = new Translation(request, translationText, lang);
-        TRANSLATIONS_SERVICE_DATA.add(translation);
     }
 
     // Prevent direct instantiation.
     private TranslationsRemoteDataSource() {
+        restClient = new RestClient();
     }
 
     public static TranslationsRemoteDataSource getInstance() {
@@ -41,13 +43,25 @@ public class TranslationsRemoteDataSource implements TranslationsDataSource {
     }
 
     @Override
-    public void getTranslation(@NonNull String request, @NonNull String lang, @NonNull GetTranslationCallback callback) {
+    public void getTranslation(@NonNull final String request, @NonNull String lang, @NonNull final GetTranslationCallback callback) {
         // Simulate network
-        try {
-            Thread.sleep(SERVICE_LATENCY_IN_MILLIS);
-        } catch (InterruptedException e) {
-        }
-        callback.onTranslationLoaded(TRANSLATIONS_SERVICE_DATA.get(0));
+        Call<ApiResponse> translate = restClient.getApiService().translate(request, lang, API_KEY);
+        translate.enqueue(new Callback<ApiResponse>() {
+            @Override
+            public void onResponse(Call<ApiResponse> call, Response<ApiResponse> response) {
+                if (response.isSuccessful()) {
+                    callback.onTranslationLoaded(Translation.from(request, response.body()));
+                } else {
+                    callback.onDataNotAvailable();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ApiResponse> call, Throwable t) {
+                Timber.e(t);
+                callback.onDataNotAvailable();
+            }
+        });
     }
 
     @Override

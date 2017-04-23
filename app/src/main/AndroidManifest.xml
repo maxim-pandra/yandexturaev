@@ -2,6 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.maxim.turaevyandex">
 
+    <uses-permission android:name="android.permission.INTERNET"/>
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -23,6 +25,10 @@
         <activity
             android:name=".settings.SettingsActivity"
             android:label="@string/label_settings"/>
+
+        <activity
+        android:name=".translator.TranslatorActivity"
+        android:label="@string/label_translation"/>
 
         <provider
             android:name="com.example.maxim.turaevyandex.data.source.TranslationsProvider"

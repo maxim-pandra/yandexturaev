@@ -30,6 +30,7 @@ dependencies {
 
     //Network dependencies
     compile "com.squareup.retrofit2:retrofit:$rootProject.retrofitVersion"
+    compile "com.squareup.retrofit2:converter-gson:2.2.0"
     compile "com.jakewharton.timber:timber:$rootProject.timberVersion"
 
     //Debug

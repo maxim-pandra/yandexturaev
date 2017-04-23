@@ -4,8 +4,11 @@ import android.database.Cursor;
 import android.support.annotation.NonNull;
 
 import com.example.maxim.turaevyandex.data.Translation;
+import com.example.maxim.turaevyandex.data.source.local.TranslationsLocalDataSource;
 
 import java.util.List;
+
+import timber.log.Timber;
 
 import static dagger.internal.Preconditions.checkNotNull;
 
@@ -63,17 +66,38 @@ public class TranslationsRepository implements TranslationsDataSource {
      * get the data.
      */
     @Override
-    public void getTranslation(@NonNull String request, @NonNull String lang, @NonNull final GetTranslationCallback callback) {
+    public void getTranslation(@NonNull final String request, @NonNull final String lang, @NonNull final GetTranslationCallback callback) {
+        //first try load from local storage
+        Timber.d("trying to load data from local repository");
+
+        translationsLocalDataSource.getTranslation(request, lang, new GetTranslationCallback() {
+            @Override
+            public void onTranslationLoaded(Translation translation) {
+                callback.onTranslationLoaded(translation);
+                Timber.d("data loaded form local repository");
+            }
+
+            @Override
+            public void onDataNotAvailable() {
+                Timber.d("data not available in local repository, performing call to remote API");
+                performRemoteCall(request, lang, callback);
+            }
+        });
+    }
+
+    void performRemoteCall(@NonNull String request, @NonNull String lang, @NonNull final GetTranslationCallback callback) {
         // Load from server
         translationsRemoteDataSource.getTranslation(request, lang, new GetTranslationCallback() {
             @Override
             public void onTranslationLoaded(Translation translation) {
+                Timber.d("data loaded from remote api, translation = '%s'", translation);
                 saveTranslation(translation);
                 callback.onTranslationLoaded(translation);
             }
 
             @Override
             public void onDataNotAvailable() {
+                Timber.d("remote api is unavailable");
                 callback.onDataNotAvailable();
             }
         });

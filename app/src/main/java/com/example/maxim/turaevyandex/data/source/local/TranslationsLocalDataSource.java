@@ -2,6 +2,7 @@ package com.example.maxim.turaevyandex.data.source.local;
 
 import android.content.ContentResolver;
 import android.content.ContentValues;
+import android.database.Cursor;
 import android.support.annotation.NonNull;
 
 import com.example.maxim.turaevyandex.data.Translation;
@@ -25,14 +26,30 @@ public class TranslationsLocalDataSource implements TranslationsDataSource {
     public static TranslationsLocalDataSource getInstance(@NonNull ContentResolver contentResolver) {
         if (INSTANCE == null) {
             INSTANCE = new TranslationsLocalDataSource(contentResolver);
-            INSTANCE.saveTranslation(new Translation("hello", "world", "ru-en"));
         }
         return INSTANCE;
     }
 
     @Override
     public void getTranslation(@NonNull String request, @NonNull String lang, @NonNull GetTranslationCallback callback) {
-        // no-op since the data is loaded via Cursor Loader
+        String selection = null;
+        String[] selectionArgs = null;
+
+        selection = TranslationsPersistenceContract.TranslationEntry.COLUMN_NAME_REQUEST + " = ? AND " +
+                TranslationsPersistenceContract.TranslationEntry.COLUMN_NAME_LANG + " = ?";
+        selectionArgs = new String[] { request, lang };
+
+        Cursor query = contentResolver.query(TranslationsPersistenceContract.TranslationEntry.buildTranslationsUriWith(request, lang),
+                null,
+                selection,
+                selectionArgs,
+                null);
+
+        if (query.moveToLast()) {
+            callback.onTranslationLoaded(Translation.from(query));
+        } else {
+            callback.onDataNotAvailable();
+        }
     }
 
     @Override

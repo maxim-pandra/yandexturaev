@@ -26,9 +26,9 @@ public class HistoryPresenter implements HistoryContract.Presenter,
         TranslationsRepository.LoadDataCallback, TranslationsDataSource.GetBookmarksCallback,
         LoaderManager.LoaderCallbacks<Cursor> {
 
-    public final static int TRANSLATIONS_LOADER = 1;
+    public final static int HISTORY_LOADER = 1;
 
-    private final HistoryContract.View translationsView;
+    private final HistoryContract.View historyView;
 
     @NonNull
     private final TranslationsRepository translationsRepository;
@@ -41,13 +41,13 @@ public class HistoryPresenter implements HistoryContract.Presenter,
 
     private HistoryFilter currentFiltering;
 
-    public HistoryPresenter(@NonNull LoaderProvider loaderProvider, @NonNull LoaderManager loaderManager, @NonNull TranslationsRepository translationsRepository, @NonNull HistoryContract.View translationsView, @NonNull HistoryFilter historyFilter) {
+    public HistoryPresenter(@NonNull LoaderProvider loaderProvider, @NonNull LoaderManager loaderManager, @NonNull TranslationsRepository translationsRepository, @NonNull HistoryContract.View historyView, @NonNull HistoryFilter historyFilter) {
         this.loaderProvider = checkNotNull(loaderProvider, "loaderProvider provider cannot be null");
         this.loaderManager = checkNotNull(loaderManager, "loaderManager provider cannot be null");
         this.translationsRepository = checkNotNull(translationsRepository, "tasksRepository provider cannot be null");
-        this.translationsView = checkNotNull(translationsView, "tasksView cannot be null!");
+        this.historyView = checkNotNull(historyView, "tasksView cannot be null!");
         this.currentFiltering = checkNotNull(historyFilter, "taskFilter cannot be null!");
-        this.translationsView.setPresenter(this);
+        this.historyView.setPresenter(this);
     }
 
     @Override
@@ -83,23 +83,23 @@ public class HistoryPresenter implements HistoryContract.Presenter,
     @Override
     public void onBookmarksLoaded(List<Translation> bookmarkList) {
         // we don't care about the result since the CursorLoader will load the data for us
-        if (loaderManager.getLoader(TRANSLATIONS_LOADER) == null) {
-            loaderManager.initLoader(TRANSLATIONS_LOADER, currentFiltering.getFilterExtras(), this);
+        if (loaderManager.getLoader(HISTORY_LOADER) == null) {
+            loaderManager.initLoader(HISTORY_LOADER, currentFiltering.getFilterExtras(), this);
         } else {
-            loaderManager.restartLoader(TRANSLATIONS_LOADER, currentFiltering.getFilterExtras(), this);
+            loaderManager.restartLoader(HISTORY_LOADER, currentFiltering.getFilterExtras(), this);
         }
     }
 
     @Override
     public void loadTranslations() {
-        translationsView.setLoadingIndicator(true);
+        historyView.setLoadingIndicator(true);
         translationsRepository.getBookmarks(this);
         //ToDO temporary loads bookmarks, should load history though
     }
 
     @Override
     public void loadBookmarks() {
-        translationsView.setLoadingIndicator(true);
+        historyView.setLoadingIndicator(true);
         translationsRepository.getBookmarks(this);
     }
 
@@ -111,7 +111,7 @@ public class HistoryPresenter implements HistoryContract.Presenter,
     @Override
     public void setFiltering(HistoryFilter historyFilter) {
         currentFiltering = historyFilter;
-        loaderManager.restartLoader(TRANSLATIONS_LOADER, currentFiltering.getFilterExtras(), this);
+        loaderManager.restartLoader(HISTORY_LOADER, currentFiltering.getFilterExtras(), this);
     }
 
     @Override
@@ -121,9 +121,9 @@ public class HistoryPresenter implements HistoryContract.Presenter,
 
     @Override
     public void onDataLoaded(Cursor data) {
-        translationsView.setLoadingIndicator(false);
+        historyView.setLoadingIndicator(false);
         // Show the list of translations or bookmarks
-        translationsView.showTranslations(data);
+        historyView.showTranslations(data);
         // Set the filter label's text.
         showFilterLabel();
     }
@@ -131,10 +131,10 @@ public class HistoryPresenter implements HistoryContract.Presenter,
     private void showFilterLabel() {
         switch (currentFiltering.getHistoryFilterType()) {
             case ALL_TRANSLATIONS:
-                translationsView.showAllHistoryLabel();
+                historyView.showAllHistoryLabel();
                 break;
             case MARKED_TRANSLATIONS:
-                translationsView.showBookmarksOnlyLabel();
+                historyView.showBookmarksOnlyLabel();
                 break;
             default:
                 throw new UnsupportedOperationException("illegal filter type");
@@ -143,7 +143,7 @@ public class HistoryPresenter implements HistoryContract.Presenter,
 
     @Override
     public void onDataEmpty() {
-        translationsView.setLoadingIndicator(false);
+        historyView.setLoadingIndicator(false);
         // Show a message indicating there are no translations for that filter type.
         processEmptyTranslations();
     }
@@ -151,10 +151,10 @@ public class HistoryPresenter implements HistoryContract.Presenter,
     private void processEmptyTranslations() {
         switch (currentFiltering.getHistoryFilterType()) {
             case MARKED_TRANSLATIONS:
-                translationsView.showNoBookmarks();
+                historyView.showNoBookmarks();
                 break;
             case ALL_TRANSLATIONS:
-                translationsView.showNoTranslations();
+                historyView.showNoTranslations();
                 break;
             default:
                 throw new UnsupportedOperationException("Illegal filter type");
@@ -163,12 +163,12 @@ public class HistoryPresenter implements HistoryContract.Presenter,
 
     @Override
     public void onDataNotAvailable() {
-        translationsView.setLoadingIndicator(false);
-        translationsView.showLoadingTranslationError();
+        historyView.setLoadingIndicator(false);
+        historyView.showLoadingTranslationError();
     }
 
     @Override
     public void onDataReset() {
-        translationsView.showTranslations(null);
+        historyView.showTranslations(null);
     }
 }

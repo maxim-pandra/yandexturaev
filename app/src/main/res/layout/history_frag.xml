@@ -1,18 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.example.maxim.turaevyandex.history.ScrollChildSwipeRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<com.example.maxim.turaevyandex.common.ScrollChildSwipeRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/refresh_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
 
     <RelativeLayout
-        android:id="@+id/translationsContainer"
+        android:id="@+id/historyContainer"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
 
         <LinearLayout
-            android:id="@+id/translationsLL"
+            android:id="@+id/historyLL"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical">
@@ -29,27 +29,27 @@
                 android:layout_marginBottom="@dimen/activity_vertical_margin" />
 
             <ListView
-                android:id="@+id/translations_list"
+                android:id="@+id/historyBookmarksList"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
         </LinearLayout>
 
         <LinearLayout
-            android:id="@+id/noTranslations"
+            android:id="@+id/emptyView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
             android:orientation="vertical">
 
             <ImageView
-                android:id="@+id/noTranslationsIcon"
+                android:id="@+id/noHistoryIcon"
                 android:layout_width="48dp"
                 android:layout_height="48dp"
                 android:layout_gravity="center"
                 android:src="@drawable/ic_home_black_24dp" />
 
             <TextView
-                android:id="@+id/noTranslationsMain"
+                android:id="@+id/noHistoryMain"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
@@ -59,4 +59,4 @@
         </LinearLayout>
     </RelativeLayout>
 
-</com.example.maxim.turaevyandex.history.ScrollChildSwipeRefreshLayout>
+</com.example.maxim.turaevyandex.common.ScrollChildSwipeRefreshLayout>

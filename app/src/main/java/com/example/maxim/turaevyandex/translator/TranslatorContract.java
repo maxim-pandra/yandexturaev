@@ -3,8 +3,7 @@ package com.example.maxim.turaevyandex.translator;
 import com.example.maxim.turaevyandex.BasePresenter;
 import com.example.maxim.turaevyandex.BaseView;
 import com.example.maxim.turaevyandex.data.Translation;
-import com.example.maxim.turaevyandex.history.HistoryFilter;
-import com.example.maxim.turaevyandex.history.HistoryFilterType;
+import com.example.maxim.turaevyandex.data.source.TranslationsDataSource;
 
 public class TranslatorContract {
 
@@ -13,14 +12,26 @@ public class TranslatorContract {
         void setLoadingIndicator(boolean active);
 
         void showTranslation(Translation translation);
+
+        void showLoadingTranslationError();
+
+        void showEmptyView();
+
+        void showTranslator();
+
+        void setTitle(String title);
+
+        void showLangDirPopUpMenu();
     }
 
     interface Presenter extends BasePresenter {
 
-        void loadTranslation(String request, String lang);
+        void loadTranslation(String request);
 
-        void setFiltering(HistoryFilter requestType);
+        void updateTranslationBookmarkState(Translation translation);
 
-        HistoryFilterType getFiltering();
+        void setTranslationDirection(TranslationDirection lang);
+
+        TranslationDirectionType getTranslationDirection();
     }
 }

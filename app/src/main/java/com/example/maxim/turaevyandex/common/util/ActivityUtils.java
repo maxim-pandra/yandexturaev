@@ -1,4 +1,4 @@
-package com.example.maxim.turaevyandex.util;
+package com.example.maxim.turaevyandex.common.util;
 
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;

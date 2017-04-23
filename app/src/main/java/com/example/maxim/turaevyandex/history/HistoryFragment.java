@@ -24,6 +24,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.maxim.turaevyandex.R;
+import com.example.maxim.turaevyandex.common.ScrollChildSwipeRefreshLayout;
 import com.example.maxim.turaevyandex.data.Translation;
 
 import timber.log.Timber;
@@ -83,20 +84,20 @@ public class HistoryFragment extends Fragment implements HistoryContract.View {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
-        View root = inflater.inflate(R.layout.translations_frag, container, false);
+        View root = inflater.inflate(R.layout.history_frag, container, false);
 
         // Set up translations view
         listAdapter = new TranslationsCursorAdapter(getActivity(), itemListener);
-        ListView listView = (ListView) root.findViewById(R.id.translations_list);
+        ListView listView = (ListView) root.findViewById(R.id.historyBookmarksList);
         listView.setAdapter(listAdapter);
 
         filteringLabelView = (TextView) root.findViewById(R.id.filteringLabel);
-        translationsView = (LinearLayout) root.findViewById(R.id.translationsLL);
+        translationsView = (LinearLayout) root.findViewById(R.id.historyLL);
 
         // Set up  no translations view
-        noTranslationsView = root.findViewById(R.id.noTranslations);
-        noTranslationIcon = (ImageView) root.findViewById(R.id.noTranslationsIcon);
-        noTranslationMainView = (TextView) root.findViewById(R.id.noTranslationsMain);
+        noTranslationsView = root.findViewById(R.id.emptyView);
+        noTranslationIcon = (ImageView) root.findViewById(R.id.noHistoryIcon);
+        noTranslationMainView = (TextView) root.findViewById(R.id.noHistoryMain);
 
         // Set up progress indicator
         final ScrollChildSwipeRefreshLayout swipeRefreshLayout =
@@ -140,7 +141,7 @@ public class HistoryFragment extends Fragment implements HistoryContract.View {
 
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-        inflater.inflate(R.menu.translations_fragment_menu, menu);
+        inflater.inflate(R.menu.history_fragment_menu, menu);
     }
 
     @Override
