@@ -25,6 +25,6 @@ public class SettingsPresenter implements SettingsContract.Presenter {
 
     @Override
     public void start() {
-        settingsView.showSettingsText("Settings 123");
+        settingsView.showSettingsText();
     }
 }

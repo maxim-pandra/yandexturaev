@@ -7,7 +7,7 @@ public class SettingsContract {
 
     interface  View extends BaseView<Presenter> {
 
-       void showSettingsText(String text);
+       void showSettingsText();
 
     }
 

@@ -51,7 +51,7 @@ public class SettingsFragment extends Fragment implements SettingsContract.View 
     }
 
     @Override
-    public void showSettingsText(String text) {
-        settingsTextView.setText(text);
+    public void showSettingsText() {
+        settingsTextView.setText(R.string.settings_text);
     }
 }
