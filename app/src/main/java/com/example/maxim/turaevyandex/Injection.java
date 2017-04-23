@@ -10,10 +10,6 @@ import com.example.maxim.turaevyandex.data.source.remote.TranslationsRemoteDataS
 
 import static dagger.internal.Preconditions.checkNotNull;
 
-/**
- * Created by maxim on 4/23/2017.
- */
-
 public class Injection {
 
     public static TranslationsRepository provideTranslationsRepository(Context context){

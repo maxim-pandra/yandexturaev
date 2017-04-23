@@ -10,10 +10,6 @@ import android.widget.TextView;
 
 import com.example.maxim.turaevyandex.R;
 
-/**
- * Created by maxim on 4/23/2017.
- */
-
 public class SettingsFragment extends Fragment implements SettingsContract.View {
 
     private SettingsContract.Presenter presenter;
@@ -25,8 +21,7 @@ public class SettingsFragment extends Fragment implements SettingsContract.View 
     }
 
     public static SettingsFragment newInstance() {
-        SettingsFragment fragment = new SettingsFragment();
-        return fragment;
+        return new SettingsFragment();
     }
 
 

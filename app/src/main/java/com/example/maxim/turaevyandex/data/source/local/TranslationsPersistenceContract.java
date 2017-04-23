@@ -5,7 +5,6 @@ import android.net.Uri;
 import android.provider.BaseColumns;
 
 import com.example.maxim.turaevyandex.BuildConfig;
-import com.example.maxim.turaevyandex.translator.TranslationDirection;
 
 /**
  * The contract used for the db to save the translations locally.

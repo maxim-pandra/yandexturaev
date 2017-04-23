@@ -6,10 +6,6 @@ import retrofit2.Call;
 import retrofit2.http.GET;
 import retrofit2.http.Query;
 
-/**
- * Created by maxim on 4/23/2017.
- */
-
 public interface YandexApi {
 
     @GET("/api/v1.5/tr.json/translate")

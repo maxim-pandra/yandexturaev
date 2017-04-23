@@ -9,6 +9,7 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 /**
+ * Rest adapter will be instantiated in this module when we will add Dagger to the application
  * Created by maxim on 4/23/2017.
  */
 
@@ -24,12 +25,11 @@ public class NetModule {
     @Provides
     @Singleton
     Retrofit provideRetrofit() {
-        Retrofit retrofit = new Retrofit.Builder()
+        return new Retrofit.Builder()
                 .addConverterFactory(GsonConverterFactory.create())
                 .baseUrl(baseUrl)
                 .client(new OkHttpClient())
                 .build();
-        return retrofit;
     }
 
 }

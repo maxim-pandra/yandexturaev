@@ -20,7 +20,6 @@ import android.view.ViewGroup;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -40,7 +39,6 @@ public class TranslatorFragment extends Fragment implements TranslatorContract.V
 
     private EditText translatorText;
     private View emptyView;
-    private ImageView emptyIcon;
     private TextView emptyText;
     private LinearLayout translatorView;
     private CheckBox bookmarkBox;
@@ -90,6 +88,9 @@ public class TranslatorFragment extends Fragment implements TranslatorContract.V
     public void onResume() {
         super.onResume();
         presenter.start();
+        if (translatorText.getText().toString().length() > 2) {
+            presenter.loadTranslation(translatorText.getText().toString());
+        }
     }
 
     @Override
@@ -108,7 +109,6 @@ public class TranslatorFragment extends Fragment implements TranslatorContract.V
 
         // Set up  no translations view
         emptyView = root.findViewById(R.id.emptyView);
-        emptyIcon = (ImageView) root.findViewById(R.id.emptyViewIcon);
         emptyText = (TextView) root.findViewById(R.id.emptyViewTitle);
         translationTextView = (TextView) root.findViewById(R.id.translationTextView);
         bookmarkBox = (CheckBox) root.findViewById(R.id.translatorBookmark);
@@ -226,7 +226,6 @@ public class TranslatorFragment extends Fragment implements TranslatorContract.V
         emptyView.setVisibility(View.VISIBLE);
 
         emptyText.setText(R.string.translator_empty_text);
-        emptyIcon.setImageDrawable(getResources().getDrawable(R.drawable.ic_translate_black_24dp));
     }
 
     @Override

@@ -8,6 +8,7 @@ import dagger.Module;
 import dagger.Provides;
 
 /**
+ * Dagger module for future use in DI application framework
  * Created by maxim on 4/23/2017.
  */
 
@@ -17,7 +18,7 @@ public class AppModule {
     Application application;
 
     public AppModule(Application application) {
-        application = application;
+        this.application = application;
     }
 
     @Provides

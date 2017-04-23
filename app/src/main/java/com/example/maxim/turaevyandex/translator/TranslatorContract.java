@@ -3,7 +3,6 @@ package com.example.maxim.turaevyandex.translator;
 import com.example.maxim.turaevyandex.BasePresenter;
 import com.example.maxim.turaevyandex.BaseView;
 import com.example.maxim.turaevyandex.data.Translation;
-import com.example.maxim.turaevyandex.data.source.TranslationsDataSource;
 
 public class TranslatorContract {
 

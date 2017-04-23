@@ -32,8 +32,8 @@ public class TranslationsLocalDataSource implements TranslationsDataSource {
 
     @Override
     public void getTranslation(@NonNull String request, @NonNull String lang, @NonNull GetTranslationCallback callback) {
-        String selection = null;
-        String[] selectionArgs = null;
+        String selection;
+        String[] selectionArgs;
 
         selection = TranslationsPersistenceContract.TranslationEntry.COLUMN_NAME_REQUEST + " = ? AND " +
                 TranslationsPersistenceContract.TranslationEntry.COLUMN_NAME_LANG + " = ?";

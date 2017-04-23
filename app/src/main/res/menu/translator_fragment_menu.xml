@@ -4,6 +4,7 @@
     <item
         android:id="@+id/menu_lang"
         android:title="@string/lang"
+        android:icon="@drawable/ic_compare_arrows_black_24dp"
         app:showAsAction="always" />
 
     <item

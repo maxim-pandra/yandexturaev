@@ -7,7 +7,9 @@ import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
+import android.support.v4.content.res.ResourcesCompat;
 import android.support.v4.widget.CursorAdapter;
+import android.support.v4.widget.ResourceCursorAdapter;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.PopupMenu;
 import android.view.LayoutInflater;
@@ -38,7 +40,7 @@ public class HistoryFragment extends Fragment implements HistoryContract.View {
     private HistoryContract.Presenter presenter;
 
     /**
-     *  Listener for clicks on translations in the ListView.
+     * Listener for clicks on translations in the ListView.
      */
     TranslationItemListener itemListener = new TranslationItemListener() {
         @Override
@@ -59,6 +61,7 @@ public class HistoryFragment extends Fragment implements HistoryContract.View {
     private TextView noTranslationMainView;
     private LinearLayout translationsView;
     private TextView filteringLabelView;
+    private ScrollChildSwipeRefreshLayout swipeRefreshLayout;
 
     public HistoryFragment() {
         // Requires empty public constructor
@@ -100,8 +103,7 @@ public class HistoryFragment extends Fragment implements HistoryContract.View {
         noTranslationMainView = (TextView) root.findViewById(R.id.noHistoryMain);
 
         // Set up progress indicator
-        final ScrollChildSwipeRefreshLayout swipeRefreshLayout =
-                (ScrollChildSwipeRefreshLayout) root.findViewById(R.id.refresh_layout);
+        swipeRefreshLayout = (ScrollChildSwipeRefreshLayout) root.findViewById(R.id.refresh_layout);
         swipeRefreshLayout.setColorSchemeColors(
                 ContextCompat.getColor(getActivity(), R.color.colorPrimary),
                 ContextCompat.getColor(getActivity(), R.color.colorAccent),
@@ -142,6 +144,13 @@ public class HistoryFragment extends Fragment implements HistoryContract.View {
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         inflater.inflate(R.menu.history_fragment_menu, menu);
+    }
+
+    @Override
+    public void showBookmarkAddedMessage() {
+        Snackbar mySnackbar = Snackbar.make(swipeRefreshLayout,
+                R.string.bookmark_added, Snackbar.LENGTH_SHORT);
+        mySnackbar.show();
     }
 
     @Override
@@ -222,7 +231,7 @@ public class HistoryFragment extends Fragment implements HistoryContract.View {
         noTranslationsView.setVisibility(View.VISIBLE);
 
         noTranslationMainView.setText(mainText);
-        noTranslationIcon.setImageDrawable(getResources().getDrawable(iconRes));
+        noTranslationIcon.setImageDrawable(ResourcesCompat.getDrawable(getResources(), iconRes, null));
     }
 
     @Override
@@ -255,7 +264,7 @@ public class HistoryFragment extends Fragment implements HistoryContract.View {
         void onMarkTranslationClick(Translation bookmarkedTranslation);
     }
 
-    private static class TranslationsCursorAdapter extends CursorAdapter{
+    private static class TranslationsCursorAdapter extends CursorAdapter {
 
         private final TranslationItemListener itemListener;
 
@@ -266,7 +275,7 @@ public class HistoryFragment extends Fragment implements HistoryContract.View {
 
         @Override
         public View newView(Context context, Cursor cursor, ViewGroup parent) {
-            View view = LayoutInflater.from(context).inflate(R.layout.translation_item, parent, false);
+            View view = LayoutInflater.from(context).inflate(R.layout.history_item, parent, false);
 
             ViewHolder viewHolder = new ViewHolder(view);
             view.setTag(viewHolder);
@@ -276,7 +285,7 @@ public class HistoryFragment extends Fragment implements HistoryContract.View {
 
         @Override
         public void bindView(View view, Context context, Cursor cursor) {
-            ViewHolder viewHolder = ((ViewHolder) view.getTag());
+            final ViewHolder viewHolder = ((ViewHolder) view.getTag());
 
             final Translation translation = Translation.from(cursor);
 
@@ -289,19 +298,15 @@ public class HistoryFragment extends Fragment implements HistoryContract.View {
                 public void onClick(View v) {
                     if (!translation.isBookmarked()) {
                         itemListener.onMarkTranslationClick(translation);
-                    } else  {
+                    } else {
                         Timber.w("Unsupported operation removeBookmark");
+                        viewHolder.bookmarkedBox.setChecked(true); // disable checkbox
+
                         //ToDo implement remove bookmark thing
                         //itemListener.onRemoveBookmarkClick(translation);
                     }
                 }
             });
-
-            if (translation.isBookmarked()) {
-                viewHolder.rowView.setBackgroundColor(context.getResources().getColor(R.color.marked));
-            } else  {
-                viewHolder.rowView.setBackgroundColor(context.getResources().getColor(android.R.color.transparent));
-            }
 
             viewHolder.rowView.setOnClickListener(new View.OnClickListener() {
                 @Override

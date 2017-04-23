@@ -9,30 +9,21 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
-import android.widget.Toast;
 
 import com.example.maxim.turaevyandex.Injection;
 import com.example.maxim.turaevyandex.R;
 import com.example.maxim.turaevyandex.common.util.ActivityUtils;
 import com.example.maxim.turaevyandex.data.source.LoaderProvider;
 import com.example.maxim.turaevyandex.history.HistoryActivity;
-import com.example.maxim.turaevyandex.history.HistoryFilter;
-import com.example.maxim.turaevyandex.history.HistoryFilterType;
-import com.example.maxim.turaevyandex.history.HistoryFragment;
-import com.example.maxim.turaevyandex.history.HistoryPresenter;
 import com.example.maxim.turaevyandex.settings.SettingsActivity;
 
 import timber.log.Timber;
 
-/**
- * Created by maxim on 4/23/2017.
- */
-
 public class TranslatorActivity extends AppCompatActivity implements SetTitleCallback {
 
-    private static final String CURRENT_TRANSLATION_DIRECTION_KEY = "CURRENT_TRANSLATION_DIRECTIOIN_KEY";
+    private static final String CURRENT_TRANSLATION_DIRECTION_KEY = "CURRENT_TRANSLATION_DIRECTION_KEY";
 
-    private TranslatorPresenter tralationPresenter;
+    private TranslatorPresenter translatorPresenter;
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -41,17 +32,14 @@ public class TranslatorActivity extends AppCompatActivity implements SetTitleCal
             Intent intent;
             switch (item.getItemId()) {
                 case R.id.navigation_translate:
-                    Toast.makeText(TranslatorActivity.this, "already here", Toast.LENGTH_SHORT).show();
                     return true;
                 case R.id.navigation_history:
                     intent = new Intent(TranslatorActivity.this, HistoryActivity.class);
                     TranslatorActivity.this.startActivity(intent);
-                    Toast.makeText(TranslatorActivity.this, "go to history", Toast.LENGTH_SHORT).show();
                     return true;
                 case R.id.navigation_settings:
                     intent = new Intent(TranslatorActivity.this, SettingsActivity.class);
                     TranslatorActivity.this.startActivity(intent);
-                    Toast.makeText(TranslatorActivity.this, "go to settings", Toast.LENGTH_SHORT).show();
                     return true;
             }
             return false;
@@ -94,7 +82,7 @@ public class TranslatorActivity extends AppCompatActivity implements SetTitleCal
             translationDirection = TranslationDirection.from(currentDirection);
         }
 
-        tralationPresenter = new TranslatorPresenter(
+        translatorPresenter = new TranslatorPresenter(
                 loaderProvider,
                 getSupportLoaderManager(),
                 Injection.provideTranslationsRepository(getApplicationContext()),
@@ -109,7 +97,7 @@ public class TranslatorActivity extends AppCompatActivity implements SetTitleCal
 
     @Override
     public void onSaveInstanceState(Bundle outState) {
-        outState.putSerializable(CURRENT_TRANSLATION_DIRECTION_KEY, tralationPresenter.getTranslationDirection());
+        outState.putSerializable(CURRENT_TRANSLATION_DIRECTION_KEY, translatorPresenter.getTranslationDirection());
         super.onSaveInstanceState(outState);
     }
 

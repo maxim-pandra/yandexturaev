@@ -13,15 +13,11 @@ import com.example.maxim.turaevyandex.data.source.TranslationsRepository;
 
 import timber.log.Timber;
 
-/**
- * Created by maxim on 4/23/2017.
- */
 
 class TranslatorPresenter implements TranslatorContract.Presenter,
         TranslationsRepository.LoadDataCallback, TranslationsDataSource.GetTranslationCallback,
         LoaderManager.LoaderCallbacks<Cursor> {
 
-    public final static int HISTORY_LOADER = 1;
     private static final java.lang.String EXTRA_REQUEST = "extra_request";
     private static final String EXTRA_TRANSLATION_DIRECTION = "extra_translation_direction";
 

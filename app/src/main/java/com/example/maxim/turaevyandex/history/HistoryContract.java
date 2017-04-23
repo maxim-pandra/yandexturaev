@@ -31,6 +31,7 @@ public class HistoryContract {
 
         void showFilteringPopUpMenu();
 
+        void showBookmarkAddedMessage();
     }
 
     interface Presenter extends BasePresenter {

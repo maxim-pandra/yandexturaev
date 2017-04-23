@@ -106,6 +106,7 @@ public class HistoryPresenter implements HistoryContract.Presenter,
     @Override
     public void addBookmark(@NonNull Translation bookmarkedTranslation) {
         translationsRepository.setBookmark(bookmarkedTranslation.getId());
+        historyView.showBookmarkAddedMessage();
     }
 
     @Override

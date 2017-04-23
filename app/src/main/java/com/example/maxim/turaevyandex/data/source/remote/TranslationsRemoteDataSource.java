@@ -7,9 +7,6 @@ import com.example.maxim.turaevyandex.data.models.ApiResponse;
 import com.example.maxim.turaevyandex.data.source.TranslationsDataSource;
 import com.example.maxim.turaevyandex.network.RestClient;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;

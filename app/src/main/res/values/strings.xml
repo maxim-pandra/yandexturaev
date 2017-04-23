@@ -4,7 +4,6 @@
     <string name="title_history">History</string>
     <string name="title_settings">Settings</string>
     <string name="no_tasks_all">no_tasks_all</string>
-    <string name="no_tasks_add">no_tasks_add</string>
     <string name="menu_filter">filter</string>
     <string name="menu_clear">clear</string>
     <string name="refresh">refresh</string>
@@ -16,12 +15,12 @@
     <string name="bookmark_added">bookmark added</string>
     <string name="bookmark_filter_label">Bookmarks</string>
     <string name="all_history_filter_label">history</string>
-    <string name="label_history">History</string>
+    <string name="label_history">History &amp; Bookmarks</string>
     <string name="label_settings">Settings</string>
     <string name="lang">language</string>
     <string name="ru_en">ru-en</string>
     <string name="en_ru">en-ru</string>
-    <string name="translator_empty_text">no translation</string>
+    <string name="translator_empty_text">Type text to the field above.\nYou can change translation direction via arrows in the right upper corner</string>
     <string name="label_translation">Translation</string>
-    <string name="settings_text">Settings screen is under development, all scelleton classes are implemented, preferences will be placed here in future</string>
+    <string name="settings_text">Coming soon :)</string>
 </resources>

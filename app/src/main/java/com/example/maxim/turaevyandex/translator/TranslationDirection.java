@@ -3,7 +3,6 @@ package com.example.maxim.turaevyandex.translator;
 import android.os.Bundle;
 
 import com.example.maxim.turaevyandex.BuildConfig;
-import com.example.maxim.turaevyandex.history.HistoryFilterType;
 
 
 public class TranslationDirection {

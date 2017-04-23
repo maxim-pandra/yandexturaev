@@ -45,8 +45,8 @@ public class LoaderProvider {
     }
 
     public Loader<Cursor> createTranslationLoader(String request, TranslationDirection translationDirection) {
-        String selection = null;
-        String[] selectionArgs = null;
+        String selection;
+        String[] selectionArgs;
 
         selection = TranslationsPersistenceContract.TranslationEntry.COLUMN_NAME_REQUEST + " = ? AND " +
             TranslationsPersistenceContract.TranslationEntry.COLUMN_NAME_LANG + " = ?";

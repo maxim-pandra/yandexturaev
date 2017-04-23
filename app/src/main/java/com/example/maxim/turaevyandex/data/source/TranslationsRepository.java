@@ -4,9 +4,6 @@ import android.database.Cursor;
 import android.support.annotation.NonNull;
 
 import com.example.maxim.turaevyandex.data.Translation;
-import com.example.maxim.turaevyandex.data.source.local.TranslationsLocalDataSource;
-
-import java.util.List;
 
 import timber.log.Timber;
 

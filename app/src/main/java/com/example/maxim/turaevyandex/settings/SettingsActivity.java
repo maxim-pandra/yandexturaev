@@ -9,7 +9,6 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
-import android.widget.Toast;
 
 import com.example.maxim.turaevyandex.Injection;
 import com.example.maxim.turaevyandex.R;
@@ -18,10 +17,6 @@ import com.example.maxim.turaevyandex.common.util.ActivityUtils;
 import com.example.maxim.turaevyandex.translator.TranslatorActivity;
 
 import timber.log.Timber;
-
-/**
- * Created by maxim on 4/23/2017.
- */
 
 public class SettingsActivity extends AppCompatActivity {
     private SettingsPresenter presenter;
@@ -36,15 +31,12 @@ public class SettingsActivity extends AppCompatActivity {
                 case R.id.navigation_translate:
                     intent = new Intent(SettingsActivity.this, TranslatorActivity.class);
                     SettingsActivity.this.startActivity(intent);
-                    Toast.makeText(SettingsActivity.this, "go home", Toast.LENGTH_SHORT).show();
                     return true;
                 case R.id.navigation_history:
                     intent = new Intent(SettingsActivity.this, HistoryActivity.class);
                     SettingsActivity.this.startActivity(intent);
-                    Toast.makeText(SettingsActivity.this, "go to history", Toast.LENGTH_SHORT).show();
                     return true;
                 case R.id.navigation_settings:
-                    Toast.makeText(SettingsActivity.this, "already here", Toast.LENGTH_SHORT).show();
                     return true;
             }
             return false;
