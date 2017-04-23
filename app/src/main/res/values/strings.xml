@@ -23,4 +23,5 @@
     <string name="en_ru">en-ru</string>
     <string name="translator_empty_text">no translation</string>
     <string name="label_translation">Translation</string>
+    <string name="settings_text">Settings screen is under development, all scelleton classes are implemented, preferences will be placed here in future</string>
 </resources>
