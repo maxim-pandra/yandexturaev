@@ -47,6 +47,7 @@ public class HistoryActivity extends AppCompatActivity {
         }
 
     };
+    private BottomNavigationView navigation;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -61,9 +62,8 @@ public class HistoryActivity extends AppCompatActivity {
         ActionBar ab = getSupportActionBar();
 
 
-        BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
+        navigation = (BottomNavigationView) findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
-        navigation.setSelectedItemId(R.id.navigation_history);
         this.overridePendingTransition(0, 0);
 
         HistoryFragment historyFragment =
@@ -93,6 +93,11 @@ public class HistoryActivity extends AppCompatActivity {
         );
     }
 
+    @Override
+    protected void onStart() {
+        super.onStart();
+        navigation.setSelectedItemId(R.id.navigation_history);
+    }
 
     @Override
     public void onSaveInstanceState(Bundle outState) {

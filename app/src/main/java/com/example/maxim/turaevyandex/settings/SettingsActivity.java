@@ -43,6 +43,7 @@ public class SettingsActivity extends AppCompatActivity {
         }
 
     };
+    private BottomNavigationView navigation;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -55,9 +56,8 @@ public class SettingsActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         ActionBar ab = getSupportActionBar();
 
-        BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
+        navigation = (BottomNavigationView) findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
-        navigation.setSelectedItemId(R.id.navigation_settings);
         this.overridePendingTransition(0, 0);
 
         SettingsFragment settingsFragment =
@@ -68,5 +68,11 @@ public class SettingsActivity extends AppCompatActivity {
         }
 
         presenter = new SettingsPresenter(settingsFragment, Injection.provideTranslationsRepository(getApplicationContext()));
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        navigation.setSelectedItemId(R.id.navigation_settings);
     }
 }

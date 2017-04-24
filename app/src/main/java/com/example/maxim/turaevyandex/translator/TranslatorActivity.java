@@ -47,6 +47,7 @@ public class TranslatorActivity extends AppCompatActivity implements SetTitleCal
 
     };
     private ActionBar ab;
+    private BottomNavigationView navigation;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -59,9 +60,8 @@ public class TranslatorActivity extends AppCompatActivity implements SetTitleCal
         ab = getSupportActionBar();
 
 
-        BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
+        navigation = (BottomNavigationView) findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
-        navigation.setSelectedItemId(R.id.navigation_translate);
         this.overridePendingTransition(0, 0);
 
         TranslatorFragment translatorFragment =
@@ -94,6 +94,12 @@ public class TranslatorActivity extends AppCompatActivity implements SetTitleCal
         Timber.d("Translator activity created");
     }
 
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        navigation.setSelectedItemId(R.id.navigation_translate);
+    }
 
     @Override
     public void onSaveInstanceState(Bundle outState) {
