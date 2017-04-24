@@ -111,6 +111,12 @@ public class HistoryPresenter implements HistoryContract.Presenter,
     }
 
     @Override
+    public void removeBookmark(@NonNull Translation translation) {
+        translationsRepository.removeBookmark(translation.getId());
+        historyView.showBookmarkRemovedMessage();
+    }
+
+    @Override
     public void setFiltering(HistoryFilter historyFilter) {
         currentFiltering = historyFilter;
         loaderManager.restartLoader(HISTORY_LOADER, currentFiltering.getFilterExtras(), this);

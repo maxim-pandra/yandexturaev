@@ -77,6 +77,11 @@ public class TranslationsRemoteDataSource implements TranslationsDataSource {
     }
 
     @Override
+    public void removeBookmark(@NonNull String translationId) {
+        throw new UnsupportedOperationException("Bookmarks should be removed in local datasource");
+    }
+
+    @Override
     public void clearDataBase() {
         throw new UnsupportedOperationException("We don't have remote database");
     }

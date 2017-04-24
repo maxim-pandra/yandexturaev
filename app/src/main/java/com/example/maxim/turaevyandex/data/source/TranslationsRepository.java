@@ -112,21 +112,6 @@ public class TranslationsRepository implements TranslationsDataSource {
 
         callback.onBookmarksLoaded(null);
 
-//        // Load from local
-//        translationsLocalDataSource.getBookmarks(new GetBookmarksCallback() {
-//            @Override
-//            public void onBookmarksLoaded(List<Translation> translations) {
-//                //todo do something with loaded bookmarks
-////                refreshLocalDataSource(translations);
-//                callback.onBookmarksLoaded(null);
-//            }
-//
-//            @Override
-//            public void onDataNotAvailable() {
-//                callback.onDataNotAvailable();
-//            }
-//        });
-
     }
 
     @Override
@@ -151,6 +136,11 @@ public class TranslationsRepository implements TranslationsDataSource {
     @Override
     public void setBookmark(@NonNull String translationId) {
         translationsLocalDataSource.setBookmark(translationId);
+    }
+
+    @Override
+    public void removeBookmark(@NonNull String translationId) {
+        translationsLocalDataSource.removeBookmark(translationId);
     }
 
     public interface LoadDataCallback {

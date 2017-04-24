@@ -32,6 +32,8 @@ public class HistoryContract {
         void showFilteringPopUpMenu();
 
         void showBookmarkAddedMessage();
+
+        void showBookmarkRemovedMessage();
     }
 
     interface Presenter extends BasePresenter {
@@ -41,6 +43,8 @@ public class HistoryContract {
         void loadBookmarks();
 
         void addBookmark(@NonNull Translation bookmarkedTranslation);
+
+        void removeBookmark(@NonNull Translation translation);
 
         void setFiltering(HistoryFilter requestType);
 

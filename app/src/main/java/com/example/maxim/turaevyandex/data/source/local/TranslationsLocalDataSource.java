@@ -77,6 +77,19 @@ public class TranslationsLocalDataSource implements TranslationsDataSource {
     }
 
     @Override
+    public void removeBookmark(@NonNull String translationId) {
+        ContentValues values = new ContentValues();
+        values.put(TranslationsPersistenceContract.TranslationEntry.COLUMN_NAME_BOOKMARKED, 0);
+
+        String selection = TranslationsPersistenceContract.TranslationEntry.COLUMN_NAME_ENTRY_ID + " LIKE ?";
+        String[] selectionArgs = {translationId};
+
+        int rows = contentResolver.update(TranslationsPersistenceContract.TranslationEntry.buildTranslationsUri(), values, selection, selectionArgs);
+        Timber.d("removeBookmark called, %d rows updated", rows);
+
+    }
+
+    @Override
     public void clearDataBase() {
         int delete = contentResolver.delete(TranslationsPersistenceContract.TranslationEntry.buildTranslationsUri(), null, null);
         Timber.d("DeleteTranslation called, %d raws deleted", delete);

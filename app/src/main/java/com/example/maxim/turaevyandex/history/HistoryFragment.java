@@ -45,13 +45,16 @@ public class HistoryFragment extends Fragment implements HistoryContract.View {
     TranslationItemListener itemListener = new TranslationItemListener() {
         @Override
         public void onTranslationClick(Translation clickedTranslation) {
-            //Todo implement in presenter action
-            Toast.makeText(getActivity(), "onTranslationClick", Toast.LENGTH_SHORT).show();
+            //do nothing
         }
 
         @Override
-        public void onMarkTranslationClick(Translation bookmarkedTranslation) {
-            presenter.addBookmark(bookmarkedTranslation);
+        public void onMarkTranslationClick(Translation bookmarkedTranslation, boolean flag) {
+            if (flag) {
+                presenter.addBookmark(bookmarkedTranslation);
+            } else {
+                presenter.removeBookmark(bookmarkedTranslation);
+            }
         }
     };
 
@@ -153,6 +156,11 @@ public class HistoryFragment extends Fragment implements HistoryContract.View {
     }
 
     @Override
+    public void showBookmarkRemovedMessage() {
+        showMessage(getString(R.string.bookmark_removed));
+    }
+
+    @Override
     public void showFilteringPopUpMenu() {
         PopupMenu popup = new PopupMenu(getContext(), getActivity().findViewById(R.id.menu_filter));
         popup.getMenuInflater().inflate(R.menu.filter_tasks, popup.getMenu());
@@ -221,7 +229,7 @@ public class HistoryFragment extends Fragment implements HistoryContract.View {
     public void showNoTranslations() {
         showNoTranslationsViews(
                 getResources().getString(R.string.no_history),
-                R.drawable.ic_translate_black_24dp
+                R.drawable.ic_history_black_24dp
         );
     }
 
@@ -260,7 +268,7 @@ public class HistoryFragment extends Fragment implements HistoryContract.View {
 
         void onTranslationClick(Translation clickedTranslation);
 
-        void onMarkTranslationClick(Translation bookmarkedTranslation);
+        void onMarkTranslationClick(Translation bookmarkedTranslation, boolean flag);
     }
 
     private static class TranslationsCursorAdapter extends CursorAdapter {
@@ -296,13 +304,9 @@ public class HistoryFragment extends Fragment implements HistoryContract.View {
                 @Override
                 public void onClick(View v) {
                     if (!translation.isBookmarked()) {
-                        itemListener.onMarkTranslationClick(translation);
+                        itemListener.onMarkTranslationClick(translation, true);
                     } else {
-                        Timber.w("Unsupported operation removeBookmark");
-                        viewHolder.bookmarkedBox.setChecked(true); // disable checkbox
-
-                        //ToDo implement remove bookmark thing
-                        //itemListener.onRemoveBookmarkClick(translation);
+                        itemListener.onMarkTranslationClick(translation, false);
                     }
                 }
             });
@@ -310,7 +314,7 @@ public class HistoryFragment extends Fragment implements HistoryContract.View {
             viewHolder.rowView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    itemListener.onTranslationClick(translation);
+                    viewHolder.bookmarkedBox.performClick();
                 }
             });
         }

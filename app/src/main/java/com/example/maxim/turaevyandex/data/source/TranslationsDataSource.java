@@ -34,6 +34,8 @@ public interface TranslationsDataSource {
 
     void setBookmark(@NonNull String translationId);
 
+    void removeBookmark(@NonNull String translationId);
+
     void saveTranslation(@NonNull Translation translation);
 
 }

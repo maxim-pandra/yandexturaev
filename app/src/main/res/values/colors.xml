@@ -5,10 +5,8 @@
     <color name="colorPrimary">#ffcc00</color>
     <color name="colorPrimaryDark">#c79c00</color>
     <color name="colorPrimaryLight">#ffff50</color>
-    <color name="colorAccent">#c62828</color>
-    <color name="colorAccentDark">#8e0000</color>
-    <color name="colorAccentLight">#ff5f52</color>
+    <color name="colorAccent">#ec407a</color>
+    <color name="colorAccentDark">#b4004e</color>
+    <color name="colorAccentLight">#ff77a9</color>
 
-
-    <color name="marked">#ff0000</color>
 </resources>
